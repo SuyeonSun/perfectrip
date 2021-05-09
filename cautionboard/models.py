@@ -9,7 +9,7 @@ class Comment(models.Model):
     no=models.IntegerField()
     yes= models.IntegerField()
     pet=models.BooleanField()
-    tripType=models.CharField()
+    tripType=models.CharField(max_length=10)
 
 
 
