@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfectrip</title>
+
+    <style>
+        header {
+            padding: 10px;
+            text-align: left;
+
+        }
+
+        a:hover {
+            background-color: pink;
+        }
+
+        #main {
+            display: flex;
+            height: 500px;
+        }
+
+        #right {
+            flex: 70%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .text {
+            background-color: aqua;
+        }
+
+        .content {
+            background-color: blue;
+
+        }
+
+        .write {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #left {
+            background-color: pink;
+            padding: 30px;
+            flex: 30%;
+        }
+
+        footer {
+            background-color: blueviolet;
+            padding: 5px;
+            flex-shrink: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <a href="#">
+            <img src="{% static 'images/logo.png' %}" width="200px">
+        </a>
+    </header>
+    <div id="main">
+        <div id="left">
+            {% for list in lists.all %}
+            {{list}}
+            {% endfor %}
+        </div>
+
+
+        <div id="right">
+            <div class="text">
+                <h1>{{text.place}}</h1>
+                <h3>{{text.plaInt}}</h3>
+            </div>
+
+            <div class="content">
+                <h1>sdsd</h1>
+                <p>sdsd</p>
+                {% for content in contents.all %}
+                <h3>{{content.author}}</h3>
+                <p> {{content.caution}}</p>
+                <input type="button" value="좋아요">
+                <input type="button" value="싫어요">
+                <hr>
+                {% endfor %}
+            </div>
+
+            <div class="write">
+                <input type="text" name="author" placeholder="이름을 입력하세요"><br>
+                <input type="text" name="author" placeholder="장소를 입력하세요"><br>
+                <textarea name="caution" placeholder="주의사항을 입력하세요"></textarea>
+                <input type="submit" value="제출">
+
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p><a href="#">맨위로 올라가기</a></p>
+        <p>like lion</p>
+        <p>develope team : 선수연, 박주희, 조상현, 배지현</p>
+    </footer>
+
+</body>
+
+</html>
