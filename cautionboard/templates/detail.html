@@ -1,116 +1,149 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Perfectrip</title>
 
     <style>
-        header {
-            padding: 10px;
-            text-align: left;
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
 
-        }
+      header {
+        border-bottom: 2px solid #e6e6e6;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 15%;
+        background-color: white;
+        z-index: 4;
+      }
 
-        a:hover {
-            background-color: pink;
-        }
+      nav {
+        padding-top: 30px;
+        padding-left: 40px;
+      }
 
-        #main {
-            display: flex;
-            height: 500px;
-        }
+      .wrapper {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+        height: 100%;
+      }
 
-        #right {
-            flex: 70%;
-            display: flex;
-            flex-direction: column;
-        }
+      #main {
+        display: flex;
+        /*flex: 1;*/
+        height: 70%;
+      }
 
-        .text {
-            background-color: aqua;
-        }
+      footer {
+        height: 15%;
+        background: black;
+        color: #fff;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-        .content {
-            background-color: blue;
+      .footer_atag {
+        color: white;
+      }
 
-        }
-
-        .write {
-            display: flex;
-            flex-direction: column;
-        }
-
-        #left {
-            background-color: pink;
-            padding: 30px;
-            flex: 30%;
-        }
-
-        footer {
+      /*footer {
             background-color: blueviolet;
             padding: 5px;
             flex-shrink: 0;
-        }
+        }*/
 
-        html,
-        body {
-            height: 100%;
-        }
+      #left {
+        flex: 30%;
+        border-right: 2px solid #e6e6e6;
+        text-align: left;
+        overflow: auto;
+      }
+
+      .context:hover {
+        background: #b8b7b7;
+        cursor: pointer;
+        color: white;
+        box-shadow: 1px 1px 10px rgb(95, 95, 95);
+      }
+
+      .context:hover .p2 {
+        color: white;
+      }
+
+      #right {
+        flex: 70%;
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+      }
+
+      .p1 {
+        margin-bottom: 0;
+      }
+
+      .p2 {
+        color: #a4a4a4;
+      }
+
+      a {
+        text-decoration: none;
+        color: black;
+      }
+
+      .context {
+        padding-top: 10px;
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-bottom: 5px;
+      }
     </style>
+  </head>
 
-</head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <nav>
+          <a href="{%url 'home'%}">
+            <img src="{% static 'images/logo.png' %}" width="200px" />
+          </a>
+        </nav>
+      </header>
 
-<body>
-    <header>
-        <a href="#">
-            <img src="{% static 'images/logo.png' %}" width="200px">
-        </a>
-    </header>
-    <div id="main">
+      <div id="main">
         <div id="left">
-            {% for list in lists.all %}
-            {{list}}
-            {% endfor %}
+          {% for list in trip_list %}
+          <a href="{% url 'detail_detail' list.0 %}">
+            <div class="context">
+              <p class="p1" style="font-size: 25px">
+                <strong>{{list.0}}</strong>
+              </p>
+              <p class="p2">{{list.1}}</p>
+            </div>
+          </a>
+          {% endfor %}
         </div>
-
-
         <div id="right">
-            <div class="text">
-                <h1>{{text.place}}</h1>
-                <h3>{{text.plaInt}}</h3>
-            </div>
-
-            <div class="content">
-                <h1>sdsd</h1>
-                <p>sdsd</p>
-                {% for content in contents.all %}
-                <h3>{{content.author}}</h3>
-                <p> {{content.caution}}</p>
-                <input type="button" value="좋아요">
-                <input type="button" value="싫어요">
-                <hr>
-                {% endfor %}
-            </div>
-
-            <div class="write">
-                <input type="text" name="author" placeholder="이름을 입력하세요"><br>
-                <input type="text" name="author" placeholder="장소를 입력하세요"><br>
-                <textarea name="caution" placeholder="주의사항을 입력하세요"></textarea>
-                <input type="submit" value="제출">
-
-            </div>
+          <div class="text"></div>
         </div>
+      </div>
+
+      <footer>
+        <div><a class="footer_atag" href="#">맨위로 올라가기 |</a></div>
+        &nbsp;&nbsp;
+        <div>likelion develop team : 선수연, 박주희, 조상현, 배지현</div>
+      </footer>
     </div>
-    <footer>
-        <p><a href="#">맨위로 올라가기</a></p>
-        <p>like lion</p>
-        <p>develope team : 선수연, 박주희, 조상현, 배지현</p>
-    </footer>
-
-</body>
-
+  </body>
 </html>

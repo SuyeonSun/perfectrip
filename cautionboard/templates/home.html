@@ -1,158 +1,225 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Perfectrip</title>
 
     <!--부트스트랩-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+      var i = 1;
+      $(document).ready(function () {
+        $(".btn").click(function () {
+          $(".item2").append(
+            '<div class="middle-input" style="margin: 10px 0px 0px 10px;"><input type="text" name="middle" placeholder="경유지" style="width:300px; height: 50px; font-size: 30px;"> \
+                <button type="button" class="btnremove btn btn-dark">  -  </button></br></div>'
+          );
+          $(".btnremove").on("click", function () {
+            $(this).parent().remove();
+            $(this).prev().remove();
+            $(this).next().remove();
+            $(this).remove();
+          });
+        });
+      });
     </script>
 
-    <!--CSS-->
     <style>
-        .container {
-            flex-wrap: wrap;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 250px;
-        }
+      body {
+        background: url("/static/images/back.jpg") fixed;
+        /*fixed*/
+        background-size: cover;
+      }
 
-        .item1 {
-            margin: 10px;
-            display: flex;
-            justify-content: left;
-        }
+      form {
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 8%;
+        padding-left: 5px;
+        padding-right: 10px;
+      }
 
-        .item2 {
-            display: flex;
-            align-items: center;
-            justify-content: left;
-            margin: 10px;
-        }
+      nav {
+        margin-top: 30px;
+        margin-left: 40px;
+      }
 
-        .plus_button {
-            margin: 5px;
-        }
+      .container {
+        flex-wrap: wrap;
+        display: flex;
+        justify-content: center;
+        margin-top: 200px;
+        margin-bottom: 200px;
+      }
 
-        .item3 {
-            margin: 10px;
-            display: flex;
-            justify-content: left;
-        }
+      .item1 {
+        margin: 10px;
+        display: flex;
+        justify-content: flex-start;
+      }
 
-        .item4 {
-            margin: 10px;
-            display: flex;
-        }
+      .item2 {
+        display: grid;
+        justify-content: flex-start;
+      }
 
-        #pet {
-            margin-left: 5px;
-        }
+      .item3 {
+        margin: 10px;
+        display: flex;
+        justify-content: flex-start;
+      }
 
-        .item5 {
-            margin: 10px;
-            display: flex;
-        }
+      .item4 {
+        margin: 10px;
+        display: flex;
+      }
 
-        #travel {
-            margin-left: 35px;
-        }
+      .item5 {
+        margin: 10px;
+        display: flex;
+      }
 
-        .item6 {
-            margin: 10px;
-            display: flex;
-        }
+      .item6 {
+        margin: 10px;
+        display: flex;
+      }
 
-        .submit_button {
-            background-color: black;
-            border-radius: 5px;
-            color: white;
-        }
+      .middle-input {
+        display: flex;
+        align-items: center;
+      }
+
+      #pet {
+        margin-left: 5px;
+      }
+
+      #travel {
+        margin-left: 35px;
+      }
+
+      .submit_button {
+        background-color: black;
+        border-radius: 5px;
+        color: white;
+      }
+
+      .btn {
+        width: 40px;
+        margin: 0;
+      }
+
+      input {
+        margin-right: 5px;
+      }
+
+      button {
+        margin: 0;
+      }
     </style>
+  </head>
 
-</head>
-
-<body>
+  <body>
     <header>
-        <a href="#">
-            <img src="{% static 'images/logo.png' %}" width="200px">
+      <nav>
+        <a href="{%url 'home'%}">
+          <img src="{% static 'images/logo.png' %}" width="200px" />
         </a>
-
-        <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script type="text/javascript">
-            var i = 1;
-            $(document).ready(function () {
-                $('.btn').click(function () {
-                    $('.middle_input').append(
-                        '<input type="text" name="middle" placeholder="경유지를 입력하세요">\
-                    <button type="button" class="btnremove">삭제</button><br>'
-                    );
-                    $('.btnremove').on('click', function () {
-                        $(this).prev().remove();
-                        $(this).next().remove();
-                        $(this).remove();
-                    });
-                });
-            });
-        </script>
+      </nav>
     </header>
 
-    <div class="container" style="text-align: center">
-        <form action="detail">
+    <divr class="container" style="text-align: center">
+      <form action="detail">
+        <!--출발지-->
+        <div class="item1">
+          <input
+            type="text"
+            placeholder="출발지"
+            name="start"
+            style="width: 300px; height: 50px; font-size: 30px"
+          />
+        </div>
 
-            <!--출발지-->
-            <div class="item1">
-                <input type="text" placeholder="출발지" name="start" style="width:300px; height:50px; font-size:30px;">
-            </div>
+        <!--경유지-->
+        <div class="item2">
+          <div class="middle-input">
+            <input
+              type="text"
+              placeholder="경유지"
+              name="middle"
+              style="
+                width: 300px;
+                height: 50px;
+                font-size: 30px;
+                margin-left: 10px;
+              "
+            />
+            <button type="button" class="btn btn-dark">+</button>
+          </div>
+        </div>
 
-            <!--경유지-->
-            <div class="item2">
-                <div class="middle_input"><input type="text" placeholder="경유지" name="middle"
-                        style="width:300px; height:50px; font-size:30px;"></div>
-                <div class="plus_button"><button type="button" class="btn btn-dark"> + </button></div>
-            </div>
+        <!--도착지-->
+        <div class="item3">
+          <input
+            type="text"
+            placeholder="도착지"
+            name="end"
+            style="width: 300px; height: 50px; font-size: 30px"
+          />
+        </div>
 
-            <!--도착지-->
-            <div class="item3">
-                <input type="text" placeholder="도착지" name="end" style="width:300px; height:50px; font-size:30px;">
-            </div>
+        <!--애완견 여부-->
+        <div class="item4">
+          <label for="pet" style="font-size: 30px">애완견 여부 </label>
+          <select
+            id="pet"
+            name="애완견 여부"
+            style="width: 135px; height: 50px; font-size: 25px"
+          >
+            <option value="yes">있음</option>
+            <option value="no">없음</option>
+          </select>
+        </div>
 
-            <!--애완견 여부-->
-            <div class="item4">
-                <label for="pet" style="font-size: 30px;">애완견 여부 </label>
-                <select id="pet" name="애완견 여부" style="width:300px; height:50px; font-size:30px;">
-                    <option value="yes">있음</option>
-                    <option value="no">없음</option>
-                </select>
-            </div>
+        <!--여행 종류-->
+        <div class="item5">
+          <label for="travel" style="font-size: 30px">여행 종류 </label>
+          <select
+            id="travel"
+            name="여행 종류"
+            style="width: 135px; height: 50px; font-size: 25px"
+          >
+            <option value="alone">혼자여행</option>
+            <option value="family">가족여행</option>
+            <option value="friend">우정여행</option>
+            <option value="couple">커플여행</option>
+            <option value="group">단체여행</option>
+          </select>
+        </div>
 
-            <!--여행 종류-->
-            <div class="item5">
-                <label for="travel" style="font-size: 30px;">여행 종류 </label>
-                <select id="travel" name="여행 종류" style="width:300px; height:50px; font-size:30px;">
-                    <option value="alone">혼자여행</option>
-                    <option value="family">가족여행</option>
-                    <option value="friend">우정여행</option>
-                    <option value="couple">커플여행</option>
-                    <option value="group">단체여행</option>
-                </select>
-            </div>
-
-            <!--제출-->
-            <div class="item6">
-                <input class="submit_button" type="submit" value="제출" style="width:300px; height:50px; font-size:30px;">
-            </div>
-        </form>
-    </div>
-
-</body>
-
+        <!--제출-->
+        <div class="item6">
+          <input
+            class="submit_button"
+            type="submit"
+            value="제출"
+            style="width: 300px; height: 50px; font-size: 30px"
+          />
+        </div>
+      </form>
+    </divr
+  </body>
 </html>

@@ -1,0 +1,363 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfectrip</title>
+
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      header {
+        border-bottom: 2px solid #e6e6e6;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 15%;
+        background-color: white;
+        z-index: 4;
+      }
+
+      nav {
+        padding-top: 30px;
+        padding-left: 40px;
+      }
+
+      .wrapper {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+        height: 100%;
+      }
+
+      #main {
+        display: flex;
+        /* flex: 1; */
+        height: 70%;
+      }
+
+      footer {
+        height: 15%;
+        background: black;
+        color: #fff;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .footer_atag {
+        color: white;
+      }
+
+      #left {
+        flex: 30%;
+        border-right: 2px solid #e6e6e6;
+        text-align: left;
+        overflow: auto;
+      }
+
+      .context:hover {
+        background: #b8b7b7;
+        cursor: pointer;
+        color: white;
+        box-shadow: 1px 1px 10px rgb(95, 95, 95);
+      }
+
+      .context:hover .p2 {
+        color: white;
+      }
+
+      #right {
+        flex: 70%;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        overflow: auto;
+      }
+
+      .p1 {
+        margin-bottom: 0;
+      }
+
+      .p2 {
+        color: #a4a4a4;
+      }
+
+      a {
+        text-decoration: none;
+        color: black;
+      }
+
+      .context {
+        padding-top: 10px;
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-bottom: 5px;
+      }
+
+      .text {
+        background-color: aqua;
+        padding: 10px;
+        background-color: #f2f3f4;
+      }
+
+      .write {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .travel-wrap {
+        height: 100%;
+        display: flex;
+      }
+
+      .btn-triptype,
+      .btn-havepet {
+        opacity: 0;
+      }
+
+      .travel-btn-wrap {
+        margin-top: 30px;
+        height: 20%;
+      }
+
+      label {
+        padding: 10px 10px;
+        border: 1px solid #8465da;
+        border-radius: 10px;
+        background-color: #d4caf0;
+      }
+
+      input[type="radio"]:checked + label {
+        background: #8465da;
+        color: white;
+      }
+
+      input[type="radio"]:hover + label {
+        background-color: #8465da;
+        color: white;
+        cursor: pointer;
+      }
+
+      hr {
+        margin: 0px;
+      }
+
+      #like_hate {
+        display: flex;
+        margin-left: 8px;
+        margin-bottom: 7px;
+      }
+
+      .content {
+        /**/
+        background-color: white;
+      }
+
+      #yes {
+        margin-left: 8px;
+      }
+
+      #no {
+        margin-left: 8px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <header>
+        <nav>
+          <a href="{%url 'home'%}">
+            <img src="{% static 'images/logo.png' %}" width="200px" />
+          </a>
+        </nav>
+      </header>
+
+      <div id="main">
+        <div id="left">
+          {% for list in trip_list %}
+          <a href="{%url 'detail_detail' list.0%}">
+            <div class="context">
+              <p class="p1" style="font-size: 25px">
+                <strong>{{list.0}}</strong>
+              </p>
+              <p class="p2">{{list.1}}</p>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+
+        <div id="right">
+          <div class="text">
+            <p style="font-size: 20px; margin-left: 7px">
+              <strong>{{text.place}}</strong>
+            </p>
+            <p style="font-size: 15px; margin-left: 7px">
+              {{text.placeInformation}}
+            </p>
+          </div>
+
+          <script>
+            function count(type, num) {
+              // 결과를 표시할 element
+              var resultElement = document.getElementById(type + num);
+              //var resultElement = document.getElementsByName(type)[num+1];
+              // 현재 화면에 표시된 값
+              let number = resultElement.innerText;
+              number = parseInt(number) + 1;
+              // 결과 출력
+              resultElement.innerText = number;
+            }
+          </script>
+
+          <div class="content">
+            {%for content in comment_list%}
+            <p style="padding-left: 7px; margin: 10px">
+              작성자: {{content.author}}
+            </p>
+            <p style="padding-left: 7px; margin: 10px">
+              내용: {{content.caution}}
+            </p>
+
+            <div id="like_hate">
+              <div id="like_hate">
+                <input
+                  type="button"
+                  id="yes"
+                  onclick='count("yes","{{ forloop.counter }}")'
+                  value="좋아요"
+                />
+                <div id="yes{{forloop.counter}}" name="yes">
+                  {{content.yes}}
+                </div>
+              </div>
+
+              <div id="like_hate">
+                <input
+                  type="button"
+                  onclick='count("no","{{ forloop.counter }}")'
+                  value="싫어요"
+                />
+                <div id="no{{ forloop.counter }}" name="no">{{content.no}}</div>
+              </div>
+            </div>
+
+            <hr />
+            {% endfor %}
+          </div>
+
+          <div class="write">
+            <form action="{%url 'addcaution' text.place%}" method="POST">
+              {% csrf_token %}
+              <input
+                type="text"
+                name="author"
+                placeholder="이름을 입력하세요"
+              />
+              <textarea
+                name="caution"
+                placeholder="주의사항을 입력하세요"
+              ></textarea>
+              <!-- <select id="pet" name="애완견 여부">
+                    <option value="yes">있음</option>
+                    <option value="no">없음</option>
+                </select>
+                <select id="travel" name="여행 종류">
+                    <option value="alone">혼자여행</option>
+                    <option value="family">가족여행</option>
+                    <option value="friend">우정여행</option>
+                    <option value="couple">커플여행</option>
+                    <option value="group">단체여행</option>
+                </select> -->
+              <div class="travel-wrap">
+                <div class="travel-btn-wrap">
+                  <input
+                    type="radio"
+                    name="trip-type"
+                    class="btn-triptype"
+                    id="id1"
+                    value="alone"
+                  /><label for="id1"># 혼자여행</label>
+                </div>
+                <div class="travel-btn-wrap">
+                  <input
+                    type="radio"
+                    name="trip-type"
+                    class="btn-triptype"
+                    id="id2"
+                    value="friend"
+                  /><label for="id2"># 우정여행</label>
+                </div>
+                <div class="travel-btn-wrap">
+                  <input
+                    type="radio"
+                    name="trip-type"
+                    class="btn-triptype"
+                    id="id3"
+                    value="family"
+                  /><label for="id3"># 가족여행</label>
+                </div>
+                <div class="travel-btn-wrap">
+                  <input
+                    type="radio"
+                    name="trip-type"
+                    class="btn-triptype"
+                    id="id4"
+                    value="couple"
+                  /><label for="id4"># 커플여행</label>
+                </div>
+                <div class="travel-btn-wrap">
+                  <input
+                    type="radio"
+                    name="trip-type"
+                    class="btn-triptype"
+                    id="id5"
+                    value="group"
+                  /><label for="id5"># 단체여행</label>
+                </div>
+              </div>
+
+              <div class="travel-wrap">
+                <div class="travel-btn-wrap">
+                  <input
+                    type="radio"
+                    name="have-pet"
+                    class="btn-havepet"
+                    id="pet1"
+                    value="yes"
+                  /><label for="pet1"># 애완견있음</label>
+                </div>
+                <div class="travel-btn-wrap">
+                  <input
+                    type="radio"
+                    name="have-pet"
+                    class="btn-havepet"
+                    id="pet2"
+                    value="no"
+                  /><label for="pet2"># 애완견없음</label>
+                </div>
+              </div>
+              <input type="submit" value="주의사항 작성" />
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div><a class="footer_atag" href="#">맨위로 올라가기 |</a></div>
+        &nbsp;&nbsp;
+        <div>likelion develop team : 선수연, 박주희, 조상현, 배지현</div>
+      </footer>
+    </div>
+  </body>
+</html>

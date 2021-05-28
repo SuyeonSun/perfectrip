@@ -19,6 +19,8 @@ from cautionboard import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home),
-    path('detail',views.detail),
+    path('', views.home, name="home"),
+    path('detail',views.detail, name="detail"),
+    path('detail/<str:place>/', views.getplacedetails, name="detail_detail"),
+    path('detail/<str:place>/addcaution/', views.addcaution, name="addcaution"),
 ]
