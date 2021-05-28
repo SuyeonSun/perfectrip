@@ -34,10 +34,10 @@ def detail(request):
 
 #place에 해당하는 comments들을 가져옴
 def getplacedetails(request,place):  
-    comments=Comment.objects.filter(place=place)   #비교
+    comments=Comment.objects.filter(place=place).order_by('-yes')   #비교
     text=Text.objects.get(pk=place)
     comment_list=list(comments)
-    comment_list.sort(key=lambda Comment: Comment.yes,reverse=True)
+    #comment_list.sort(key=lambda Comment: Comment.yes,reverse=True)
     return render(request, 'detail_detail.html', {'trip_list' : menu_bar, 'comment_list' : comment_list,'text' : text})  
 
 
