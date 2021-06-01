@@ -6,6 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Perfectrip</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+      integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+      crossorigin="anonymous"
+    />
 
     <style>
       html,
@@ -110,14 +116,60 @@
         background-color: #f2f3f4;
       }
 
-      .write {
-        display: flex;
-        flex-direction: column;
+      .write-wrap {
+        width: 95%;
+        border: 2px solid #e6e6e6;
+        border-radius: 20px;
+        margin: 10px auto;
+        background-color: #f5f3f3;
+      }
+
+      .input-wrap {
+        text-align: center;
+      }
+
+      .submit-wrap {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
+      .input-wrap input {
+        font-size: 1.1rem;
+        margin-top: 10px;
+        width: 90%;
+        border: none;
+        height: 25px;
+        border-bottom: 2px solid #e6e6e6;
+        background: inherit;
+      }
+
+      .input-wrap input:focus {
+        outline: none;
+      }
+
+      .input-wrap textarea {
+        font-size: 1.1rem;
+        width: 90%;
+        height: 100px;
+        border: none;
+        border-bottom: 2px solid #e6e6e6;
+        background: inherit;
+      }
+
+      .input-wrap textarea:focus {
+        outline: none;
       }
 
       .travel-wrap {
-        height: 100%;
+        width: 90%;
         display: flex;
+        margin: 0 auto;
+      }
+
+      #pet-wrap {
+        border-bottom: 2px solid #e6e6e6;
+        padding-bottom: 20px;
       }
 
       .btn-triptype,
@@ -126,13 +178,13 @@
       }
 
       .travel-btn-wrap {
-        margin-top: 30px;
-        height: 20%;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        height: 15%;
       }
 
       label {
         padding: 10px 10px;
-        border: 1px solid #8465da;
         border-radius: 10px;
         background-color: #d4caf0;
       }
@@ -140,12 +192,29 @@
       input[type="radio"]:checked + label {
         background: #8465da;
         color: white;
+        font-weight: bold;
       }
 
       input[type="radio"]:hover + label {
         background-color: #8465da;
         color: white;
         cursor: pointer;
+        font-weight: bold;
+      }
+
+      input[type="submit"] {
+        border-radius: 10px;
+        padding: 10px 20px;
+        background-color: rgb(172, 167, 167);
+        border-width: 0px;
+      }
+
+      input[type="submit"]:hover {
+        cursor: pointer;
+        box-shadow: 3px 3px 0px 0px rgb(95, 95, 95);
+        background-color: #b9b6b6;
+        color: white;
+        font-weight: bold;
       }
 
       hr {
@@ -164,11 +233,35 @@
       }
 
       #yes {
-        margin-left: 8px;
+        border: 1px solid grey;
+        color: #686868;
+        background-color: whitesmoke;
+        border-radius: 5px;
+        margin-right: 5px;
+        cursor: pointer;
+      }
+
+      #yes:hover {
+        border: 1px solid #f44336;
+        background-color: #f44336;
+        color: white;
+        border-radius: 5px;
       }
 
       #no {
-        margin-left: 8px;
+        border: 1px solid grey;
+        color: #686868;
+        background-color: whitesmoke;
+        border-radius: 5px;
+        margin-right: 5px;
+        cursor: pointer;
+      }
+
+      #no:hover {
+        border: 1px solid #008cba;
+        background-color: #008cba;
+        color: white;
+        border-radius: 5px;
       }
     </style>
   </head>
@@ -211,9 +304,9 @@
             function count(type, num) {
               // 결과를 표시할 element
               var resultElement = document.getElementById(type + num);
-              //var resultElement = document.getElementsByName(type)[num+1];
+
               // 현재 화면에 표시된 값
-              let number = resultElement.innerText;
+              var number = resultElement.innerText;
               number = parseInt(number) + 1;
               // 결과 출력
               resultElement.innerText = number;
@@ -223,32 +316,41 @@
           <div class="content">
             {%for content in comment_list%}
             <p style="padding-left: 7px; margin: 10px">
-              작성자: {{content.author}}
+              <i class="fas fa-user-circle fa-lg"></i>
+              <strong>{{content.author}}</strong>
+              <span style="color: gray; font-size: 13px"
+                >{{content.pub_date}}</span
+              >
             </p>
-            <p style="padding-left: 7px; margin: 10px">
-              내용: {{content.caution}}
-            </p>
-
+            <p style="padding-left: 7px; margin: 10px">{{content.caution}}</p>
             <div id="like_hate">
               <div id="like_hate">
-                <input
-                  type="button"
-                  id="yes"
-                  onclick='count("yes","{{ forloop.counter }}")'
-                  value="좋아요"
-                />
+                <a href="{%url 'yesUp' text.place content.id%}">
+                  <input
+                    type="button"
+                    id="yes"
+                    onclick='count("yes","{{ forloop.counter }}")'
+                    value="좋아요"
+                  />
+                </a>
+
                 <div id="yes{{forloop.counter}}" name="yes">
                   {{content.yes}}
                 </div>
               </div>
 
               <div id="like_hate">
-                <input
-                  type="button"
-                  onclick='count("no","{{ forloop.counter }}")'
-                  value="싫어요"
-                />
-                <div id="no{{ forloop.counter }}" name="no">{{content.no}}</div>
+                <a href="{%url 'noUp' text.place content.id%}">
+                  <input
+                    type="button"
+                    id="no"
+                    onclick='count("no","{{ forloop.counter }}")'
+                    value="싫어요"
+                  />
+                  <div id="no{{ forloop.counter }}" name="no">
+                    {{content.no}}
+                  </div>
+                </a>
               </div>
             </div>
 
@@ -259,95 +361,96 @@
           <div class="write">
             <form action="{%url 'addcaution' text.place%}" method="POST">
               {% csrf_token %}
-              <input
-                type="text"
-                name="author"
-                placeholder="이름을 입력하세요"
-              />
-              <textarea
-                name="caution"
-                placeholder="주의사항을 입력하세요"
-              ></textarea>
-              <!-- <select id="pet" name="애완견 여부">
-                    <option value="yes">있음</option>
-                    <option value="no">없음</option>
-                </select>
-                <select id="travel" name="여행 종류">
-                    <option value="alone">혼자여행</option>
-                    <option value="family">가족여행</option>
-                    <option value="friend">우정여행</option>
-                    <option value="couple">커플여행</option>
-                    <option value="group">단체여행</option>
-                </select> -->
-              <div class="travel-wrap">
-                <div class="travel-btn-wrap">
+              <div class="write-wrap">
+                <div class="input-wrap">
                   <input
-                    type="radio"
-                    name="trip-type"
-                    class="btn-triptype"
-                    id="id1"
-                    value="alone"
-                  /><label for="id1"># 혼자여행</label>
+                    type="text"
+                    name="author"
+                    placeholder="이름을 입력하세요"
+                  />
                 </div>
-                <div class="travel-btn-wrap">
-                  <input
-                    type="radio"
-                    name="trip-type"
-                    class="btn-triptype"
-                    id="id2"
-                    value="friend"
-                  /><label for="id2"># 우정여행</label>
+                <div class="input-wrap">
+                  <textarea
+                    name="caution"
+                    placeholder="주의사항을 입력하세요"
+                  ></textarea>
                 </div>
-                <div class="travel-btn-wrap">
-                  <input
-                    type="radio"
-                    name="trip-type"
-                    class="btn-triptype"
-                    id="id3"
-                    value="family"
-                  /><label for="id3"># 가족여행</label>
+                <div class="input-wrap">
+                  <div class="travel-wrap">
+                    <div class="travel-btn-wrap">
+                      <input
+                        type="radio"
+                        name="trip-type"
+                        class="btn-triptype"
+                        id="id1"
+                        value="alone"
+                      /><label for="id1"># 혼자여행</label>
+                    </div>
+                    <div class="travel-btn-wrap">
+                      <input
+                        type="radio"
+                        name="trip-type"
+                        class="btn-triptype"
+                        id="id2"
+                        value="friend"
+                      /><label for="id2"># 우정여행</label>
+                    </div>
+                    <div class="travel-btn-wrap">
+                      <input
+                        type="radio"
+                        name="trip-type"
+                        class="btn-triptype"
+                        id="id3"
+                        value="family"
+                      /><label for="id3"># 가족여행</label>
+                    </div>
+                    <div class="travel-btn-wrap">
+                      <input
+                        type="radio"
+                        name="trip-type"
+                        class="btn-triptype"
+                        id="id4"
+                        value="couple"
+                      /><label for="id4"># 커플여행</label>
+                    </div>
+                    <div class="travel-btn-wrap">
+                      <input
+                        type="radio"
+                        name="trip-type"
+                        class="btn-triptype"
+                        id="id5"
+                        value="group"
+                      /><label for="id5"># 단체여행</label>
+                    </div>
+                  </div>
                 </div>
-                <div class="travel-btn-wrap">
-                  <input
-                    type="radio"
-                    name="trip-type"
-                    class="btn-triptype"
-                    id="id4"
-                    value="couple"
-                  /><label for="id4"># 커플여행</label>
-                </div>
-                <div class="travel-btn-wrap">
-                  <input
-                    type="radio"
-                    name="trip-type"
-                    class="btn-triptype"
-                    id="id5"
-                    value="group"
-                  /><label for="id5"># 단체여행</label>
-                </div>
-              </div>
 
-              <div class="travel-wrap">
-                <div class="travel-btn-wrap">
-                  <input
-                    type="radio"
-                    name="have-pet"
-                    class="btn-havepet"
-                    id="pet1"
-                    value="yes"
-                  /><label for="pet1"># 애완견있음</label>
+                <div class="input-wrap">
+                  <div class="travel-wrap" id="pet-wrap">
+                    <div class="travel-btn-wrap">
+                      <input
+                        type="radio"
+                        name="have-pet"
+                        class="btn-havepet"
+                        id="pet1"
+                        value="yes"
+                      /><label for="pet1"># 애완견있음</label>
+                    </div>
+                    <div class="travel-btn-wrap">
+                      <input
+                        type="radio"
+                        name="have-pet"
+                        class="btn-havepet"
+                        id="pet2"
+                        value="no"
+                      /><label for="pet2"># 애완견없음</label>
+                    </div>
+                  </div>
                 </div>
-                <div class="travel-btn-wrap">
-                  <input
-                    type="radio"
-                    name="have-pet"
-                    class="btn-havepet"
-                    id="pet2"
-                    value="no"
-                  /><label for="pet2"># 애완견없음</label>
+                <div class="submit-wrap">
+                  <input type="submit" value="등록" />
                 </div>
               </div>
-              <input type="submit" value="주의사항 작성" />
             </form>
           </div>
         </div>

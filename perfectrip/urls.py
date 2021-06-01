@@ -23,4 +23,6 @@ urlpatterns = [
     path('detail',views.detail, name="detail"),
     path('detail/<str:place>/', views.getplacedetails, name="detail_detail"),
     path('detail/<str:place>/addcaution/', views.addcaution, name="addcaution"),
+    path('detail/<str:place>/<str:id>/yesUp/',views.yesUp,name="yesUp"),
+    path('detail/<str:place>/<str:id>/noUp/',views.noUp,name="noUp"),
 ]

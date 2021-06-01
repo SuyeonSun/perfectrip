@@ -57,12 +57,16 @@ def addcaution(request, place):
 
     return redirect("detail_detail", place)
 
-def yesUp(request,place): 
-    text=Text.objects.get(pk=place)
-    text.yes+=1
-    return redirect('detail_detail.html')
+def yesUp(request,place,id):
+    yesupcomment = get_object_or_404(Comment, id=id)
+        #if yesupcomment.yes.filter(id = id).exists():
+    yesupcomment.yes+=1
+    yesupcomment.save()
+    return redirect("detail_detail",place)
 
-def noUp(request,place):
-    text=Text.objects.get(pk=place)
-    text.no+=1
-    return redirect('detail_detail.html')
+def noUp(request,place,id):
+    noupcomment = get_object_or_404(Comment, id=id)
+        #if yesupcomment.yes.filter(id = id).exists():
+    noupcomment.no+=1
+    noupcomment.save()
+    return redirect("detail_detail",place)
