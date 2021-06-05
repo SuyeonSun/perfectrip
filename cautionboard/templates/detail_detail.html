@@ -1,466 +1,418 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Perfectrip</title>
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
-      integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
-      crossorigin="anonymous"
-    />
 
-    <style>
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perfectrip</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+    integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
 
-      header {
-        border-bottom: 2px solid #e6e6e6;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 15%;
-        background-color: white;
-        z-index: 4;
-      }
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
 
-      nav {
-        padding-top: 30px;
-        padding-left: 40px;
-      }
+    header {
+      border-bottom: 2px solid #e6e6e6;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 15%;
+      background-color: white;
+      z-index: 4;
+    }
 
-      .wrapper {
-        display: flex;
-        min-height: 100vh;
-        flex-direction: column;
-        height: 100%;
-      }
+    nav {
+      padding-top: 30px;
+      padding-left: 40px;
+    }
 
-      #main {
-        display: flex;
-        /* flex: 1; */
-        height: 70%;
-      }
+    .wrapper {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      height: 100%;
+    }
 
-      footer {
-        height: 15%;
-        background: black;
-        color: #fff;
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+    #main {
+      display: flex;
+      /* flex: 1; */
+      height: 70%;
+    }
 
-      .footer_atag {
-        color: white;
-      }
+    footer {
+      height: 15%;
+      background: black;
+      color: #fff;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-      #left {
-        flex: 30%;
-        border-right: 2px solid #e6e6e6;
-        text-align: left;
-        overflow: auto;
-      }
+    .footer_atag {
+      color: white;
+    }
 
-      .context:hover {
-        background: #b8b7b7;
-        cursor: pointer;
-        color: white;
-        box-shadow: 1px 1px 10px rgb(95, 95, 95);
-      }
+    #left {
+      flex: 30%;
+      border-right: 2px solid #e6e6e6;
+      text-align: left;
+      overflow: auto;
+    }
 
-      .context:hover .p2 {
-        color: white;
-      }
+    .context:hover {
+      background: #b8b7b7;
+      cursor: pointer;
+      color: white;
+      box-shadow: 1px 1px 10px rgb(95, 95, 95);
+    }
 
-      #right {
-        flex: 70%;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        overflow: auto;
-      }
+    .context:hover .p2 {
+      color: white;
+    }
 
-      .p1 {
-        margin-bottom: 0;
-      }
+    #right {
+      flex: 70%;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: auto;
+    }
 
-      .p2 {
-        color: #a4a4a4;
-      }
+    .p1 {
+      margin-bottom: 0;
+    }
 
-      a {
-        text-decoration: none;
-        color: black;
-      }
+    .p2 {
+      color: #a4a4a4;
+    }
 
-      .context {
-        padding-top: 10px;
-        padding-left: 40px;
-        padding-right: 40px;
-        padding-bottom: 5px;
-      }
+    a {
+      text-decoration: none;
+      color: black;
+    }
 
-      .text {
-        background-color: aqua;
-        padding: 10px;
-        background-color: #f2f3f4;
-      }
+    .context {
+      padding-top: 10px;
+      padding-left: 40px;
+      padding-right: 40px;
+      padding-bottom: 5px;
+    }
 
-      .write-wrap {
-        width: 95%;
-        border: 2px solid #e6e6e6;
-        border-radius: 20px;
-        margin: 10px auto;
-        background-color: #f5f3f3;
-      }
+    .text {
+      background-color: aqua;
+      padding: 10px;
+      background-color: #f2f3f4;
+    }
 
-      .input-wrap {
-        text-align: center;
-      }
+    .write-wrap {
+      width: 95%;
+      border: 2px solid #e6e6e6;
+      border-radius: 20px;
+      margin: 10px auto;
+      background-color: #f5f3f3;
+    }
 
-      .submit-wrap {
-        margin-top: 10px;
-        margin-bottom: 10px;
-        text-align: center;
-      }
+    .input-wrap {
+      text-align: center;
+    }
 
-      .input-wrap input {
-        font-size: 1.1rem;
-        margin-top: 10px;
-        width: 90%;
-        border: none;
-        height: 25px;
-        border-bottom: 2px solid #e6e6e6;
-        background: inherit;
-      }
+    .submit-wrap {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
 
-      .input-wrap input:focus {
-        outline: none;
-      }
+    .input-wrap input {
+      font-size: 1.1rem;
+      margin-top: 10px;
+      width: 90%;
+      border: none;
+      height: 25px;
+      border-bottom: 2px solid #e6e6e6;
+      background: inherit;
+    }
 
-      .input-wrap textarea {
-        font-size: 1.1rem;
-        width: 90%;
-        height: 100px;
-        border: none;
-        border-bottom: 2px solid #e6e6e6;
-        background: inherit;
-      }
+    .input-wrap input:focus {
+      outline: none;
+    }
 
-      .input-wrap textarea:focus {
-        outline: none;
-      }
+    .input-wrap textarea {
+      font-size: 1.1rem;
+      width: 90%;
+      height: 100px;
+      border: none;
+      border-bottom: 2px solid #e6e6e6;
+      background: inherit;
+    }
 
-      .travel-wrap {
-        width: 90%;
-        display: flex;
-        margin: 0 auto;
-      }
+    .input-wrap textarea:focus {
+      outline: none;
+    }
 
-      #pet-wrap {
-        border-bottom: 2px solid #e6e6e6;
-        padding-bottom: 20px;
-      }
+    .travel-wrap {
+      width: 90%;
+      display: flex;
+      margin: 0 auto;
+    }
 
-      .btn-triptype,
-      .btn-havepet {
-        opacity: 0;
-      }
+    #pet-wrap {
+      border-bottom: 2px solid #e6e6e6;
+      padding-bottom: 20px;
+    }
 
-      .travel-btn-wrap {
-        margin-bottom: 10px;
-        margin-right: 10px;
-        height: 15%;
-      }
+    .btn-triptype,
+    .btn-havepet {
+      opacity: 0;
+    }
 
-      label {
-        padding: 10px 10px;
-        border-radius: 10px;
-        background-color: #d4caf0;
-      }
+    .travel-btn-wrap {
+      margin-bottom: 10px;
+      margin-right: 10px;
+      height: 15%;
+    }
 
-      input[type="radio"]:checked + label {
-        background: #8465da;
-        color: white;
-        font-weight: bold;
-      }
+    label {
+      padding: 10px 10px;
+      border-radius: 10px;
+      background-color: #d4caf0;
+    }
 
-      input[type="radio"]:hover + label {
-        background-color: #8465da;
-        color: white;
-        cursor: pointer;
-        font-weight: bold;
-      }
+    input[type="radio"]:checked+label {
+      background: #8465da;
+      color: white;
+      font-weight: bold;
+    }
 
-      input[type="submit"] {
-        border-radius: 10px;
-        padding: 10px 20px;
-        background-color: rgb(172, 167, 167);
-        border-width: 0px;
-      }
+    input[type="radio"]:hover+label {
+      background-color: #8465da;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-      input[type="submit"]:hover {
-        cursor: pointer;
-        box-shadow: 3px 3px 0px 0px rgb(95, 95, 95);
-        background-color: #b9b6b6;
-        color: white;
-        font-weight: bold;
-      }
+    input[type="submit"] {
+      border-radius: 10px;
+      padding: 10px 20px;
+      background-color: rgb(172, 167, 167);
+      border-width: 0px;
+    }
 
-      hr {
-        margin: 0px;
-      }
+    input[type="submit"]:hover {
+      cursor: pointer;
+      box-shadow: 3px 3px 0px 0px rgb(95, 95, 95);
+      background-color: #b9b6b6;
+      color: white;
+      font-weight: bold;
+    }
 
-      #like_hate {
-        display: flex;
-        margin-left: 8px;
-        margin-bottom: 7px;
-      }
+    hr {
+      margin: 0px;
+    }
 
-      .content {
-        /**/
-        background-color: white;
-      }
+    #like_hate {
+      display: flex;
+      margin-left: 8px;
+      margin-bottom: 7px;
+    }
 
-      #yes {
-        border: 1px solid grey;
-        color: #686868;
-        background-color: whitesmoke;
-        border-radius: 5px;
-        margin-right: 5px;
-        cursor: pointer;
-      }
+    .content {
+      /**/
+      background-color: white;
+    }
 
-      #yes:hover {
-        border: 1px solid #f44336;
-        background-color: #f44336;
-        color: white;
-        border-radius: 5px;
-      }
+    #yes {
+      border: 1px solid #f87556;
+      color: black;
+      background-color: #f87556;
+      border-radius: 5px;
+      margin-right: 5px;
+      cursor: pointer;
+    }
 
-      #no {
-        border: 1px solid grey;
-        color: #686868;
-        background-color: whitesmoke;
-        border-radius: 5px;
-        margin-right: 5px;
-        cursor: pointer;
-      }
+    #yes:hover {
+      border: 1px solid #f44336;
+      background-color: #f44336;
+      color: white;
+      border-radius: 5px;
+    }
 
-      #no:hover {
-        border: 1px solid #008cba;
-        background-color: #008cba;
-        color: white;
-        border-radius: 5px;
-      }
-    </style>
-  </head>
+    #no {
+      border: 1px solid #8fcce2;
+      color: black;
+      background-color: #8fcce2;
+      border-radius: 5px;
+      margin-right: 5px;
+      cursor: pointer;
+    }
 
-  <body>
-    <div class="wrapper">
-      <header>
-        <nav>
-          <a href="{%url 'home'%}">
-            <img src="{% static 'images/logo.png' %}" width="200px" />
-          </a>
-        </nav>
-      </header>
+    #no:hover {
+      border: 1px solid #008cba;
+      background-color: #008cba;
+      color: white;
+      border-radius: 5px;
+    }
 
-      <div id="main">
-        <div id="left">
-          {% for list in trip_list %}
-          <a href="{%url 'detail_detail' list.0%}">
-            <div class="context">
-              <p class="p1" style="font-size: 25px">
-                <strong>{{list.0}}</strong>
-              </p>
-              <p class="p2">{{list.1}}</p>
+    #no:hover {
+      border: 1px solid #008cba;
+      background-color: #008cba;
+      color: white;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <header>
+      <nav>
+        <a href="{%url 'home'%}">
+          <img src="{% static 'images/logo.png' %}" width="200px" />
+        </a>
+      </nav>
+    </header>
+
+    <div id="main">
+      <div id="left">
+        {% for list in trip_list %}
+        <a href="{%url 'detail_detail' list.0%}">
+          <div class="context">
+            <p class="p1" style="font-size: 25px">
+              <strong>{{list.0}}</strong>
+            </p>
+            <p class="p2">{{list.1}}</p>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+
+      <div id="right">
+        <div class="text">
+          <p style="font-size: 20px; margin-left: 7px">
+            <strong>{{text.place}}</strong>
+          </p>
+          <p style="font-size: 15px; margin-left: 7px">
+            {{text.placeInformation}}
+          </p>
+        </div>
+
+        <script>
+          function count(type, num) {
+            // 결과를 표시할 element
+            var resultElement = document.getElementById(type + num);
+
+            // 현재 화면에 표시된 값
+            var number = resultElement.innerText;
+            number = parseInt(number) + 1;
+            // 결과 출력
+            resultElement.innerText = number;
+          }
+        </script>
+
+        <div class="content">
+          {%for content in comment_list%}
+          <p style="padding-left: 7px; margin: 10px">
+            <i class="fas fa-user-circle fa-lg"></i>
+            <strong>{{content.author}}</strong> &nbsp;
+            <span style="color: gray; font-size: 14px">{{content.pub_date}}</span>
+          </p>
+          <p style="padding-left: 7px; margin: 10px">{{content.caution}}</p>
+          <div id="like_hate">
+            <div id="like_hate">
+              <a href="{%url 'yesUp' text.place content.id%}">
+                <input type="button" id="yes" onclick='count("yes","{{ forloop.counter }}")' value="좋아요" />
+              </a>
+
+              <div id="yes{{forloop.counter}}" name="yes">
+                {{content.yes}}
+              </div>
             </div>
-          </a>
+
+            <div id="like_hate">
+              <a href="{%url 'noUp' text.place content.id%}">
+                <input type="button" id="no" onclick='count("no","{{ forloop.counter }}")' value="싫어요" />
+              </a>
+
+              <div id="no{{ forloop.counter }}" name="no">
+                {{content.no}}
+              </div>
+            </div>
+          </div>
+
+          <hr />
           {% endfor %}
         </div>
 
-        <div id="right">
-          <div class="text">
-            <p style="font-size: 20px; margin-left: 7px">
-              <strong>{{text.place}}</strong>
-            </p>
-            <p style="font-size: 15px; margin-left: 7px">
-              {{text.placeInformation}}
-            </p>
-          </div>
-
-          <script>
-            function count(type, num) {
-              // 결과를 표시할 element
-              var resultElement = document.getElementById(type + num);
-
-              // 현재 화면에 표시된 값
-              var number = resultElement.innerText;
-              number = parseInt(number) + 1;
-              // 결과 출력
-              resultElement.innerText = number;
-            }
-          </script>
-
-          <div class="content">
-            {%for content in comment_list%}
-            <p style="padding-left: 7px; margin: 10px">
-              <i class="fas fa-user-circle fa-lg"></i>
-              <strong>{{content.author}}</strong>
-              <span style="color: gray; font-size: 13px"
-                >{{content.pub_date}}</span
-              >
-            </p>
-            <p style="padding-left: 7px; margin: 10px">{{content.caution}}</p>
-            <div id="like_hate">
-              <div id="like_hate">
-                <a href="{%url 'yesUp' text.place content.id%}">
-                  <input
-                    type="button"
-                    id="yes"
-                    onclick='count("yes","{{ forloop.counter }}")'
-                    value="좋아요"
-                  />
-                </a>
-
-                <div id="yes{{forloop.counter}}" name="yes">
-                  {{content.yes}}
+        <div class="write">
+          <form action="{%url 'addcaution' text.place%}" method="POST">
+            {% csrf_token %}
+            <div class="write-wrap">
+              <div class="input-wrap">
+                <input type="text" name="author" placeholder="이름을 입력하세요" />
+              </div>
+              <div class="input-wrap">
+                <textarea name="caution" placeholder="주의사항을 입력하세요"></textarea>
+              </div>
+              <div class="input-wrap">
+                <div class="travel-wrap">
+                  <div class="travel-btn-wrap">
+                    <input type="radio" name="trip-type" class="btn-triptype" id="id1" value="alone" /><label
+                      for="id1"># 혼자여행</label>
+                  </div>
+                  <div class="travel-btn-wrap">
+                    <input type="radio" name="trip-type" class="btn-triptype" id="id2" value="friend" /><label
+                      for="id2"># 우정여행</label>
+                  </div>
+                  <div class="travel-btn-wrap">
+                    <input type="radio" name="trip-type" class="btn-triptype" id="id3" value="family" /><label
+                      for="id3"># 가족여행</label>
+                  </div>
+                  <div class="travel-btn-wrap">
+                    <input type="radio" name="trip-type" class="btn-triptype" id="id4" value="couple" /><label
+                      for="id4"># 커플여행</label>
+                  </div>
+                  <div class="travel-btn-wrap">
+                    <input type="radio" name="trip-type" class="btn-triptype" id="id5" value="group" /><label
+                      for="id5"># 단체여행</label>
+                  </div>
                 </div>
               </div>
 
-              <div id="like_hate">
-                <a href="{%url 'noUp' text.place content.id%}">
-                  <input
-                    type="button"
-                    id="no"
-                    onclick='count("no","{{ forloop.counter }}")'
-                    value="싫어요"
-                  />
-                  <div id="no{{ forloop.counter }}" name="no">
-                    {{content.no}}
+              <div class="input-wrap">
+                <div class="travel-wrap" id="pet-wrap">
+                  <div class="travel-btn-wrap">
+                    <input type="radio" name="have-pet" class="btn-havepet" id="pet1" value="yes" /><label for="pet1">#
+                      애완견있음</label>
                   </div>
-                </a>
+                  <div class="travel-btn-wrap">
+                    <input type="radio" name="have-pet" class="btn-havepet" id="pet2" value="no" /><label for="pet2">#
+                      애완견없음</label>
+                  </div>
+                </div>
+              </div>
+              <div class="submit-wrap">
+                <input type="submit" value="등록" />
               </div>
             </div>
-
-            <hr />
-            {% endfor %}
-          </div>
-
-          <div class="write">
-            <form action="{%url 'addcaution' text.place%}" method="POST">
-              {% csrf_token %}
-              <div class="write-wrap">
-                <div class="input-wrap">
-                  <input
-                    type="text"
-                    name="author"
-                    placeholder="이름을 입력하세요"
-                  />
-                </div>
-                <div class="input-wrap">
-                  <textarea
-                    name="caution"
-                    placeholder="주의사항을 입력하세요"
-                  ></textarea>
-                </div>
-                <div class="input-wrap">
-                  <div class="travel-wrap">
-                    <div class="travel-btn-wrap">
-                      <input
-                        type="radio"
-                        name="trip-type"
-                        class="btn-triptype"
-                        id="id1"
-                        value="alone"
-                      /><label for="id1"># 혼자여행</label>
-                    </div>
-                    <div class="travel-btn-wrap">
-                      <input
-                        type="radio"
-                        name="trip-type"
-                        class="btn-triptype"
-                        id="id2"
-                        value="friend"
-                      /><label for="id2"># 우정여행</label>
-                    </div>
-                    <div class="travel-btn-wrap">
-                      <input
-                        type="radio"
-                        name="trip-type"
-                        class="btn-triptype"
-                        id="id3"
-                        value="family"
-                      /><label for="id3"># 가족여행</label>
-                    </div>
-                    <div class="travel-btn-wrap">
-                      <input
-                        type="radio"
-                        name="trip-type"
-                        class="btn-triptype"
-                        id="id4"
-                        value="couple"
-                      /><label for="id4"># 커플여행</label>
-                    </div>
-                    <div class="travel-btn-wrap">
-                      <input
-                        type="radio"
-                        name="trip-type"
-                        class="btn-triptype"
-                        id="id5"
-                        value="group"
-                      /><label for="id5"># 단체여행</label>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="input-wrap">
-                  <div class="travel-wrap" id="pet-wrap">
-                    <div class="travel-btn-wrap">
-                      <input
-                        type="radio"
-                        name="have-pet"
-                        class="btn-havepet"
-                        id="pet1"
-                        value="yes"
-                      /><label for="pet1"># 애완견있음</label>
-                    </div>
-                    <div class="travel-btn-wrap">
-                      <input
-                        type="radio"
-                        name="have-pet"
-                        class="btn-havepet"
-                        id="pet2"
-                        value="no"
-                      /><label for="pet2"># 애완견없음</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="submit-wrap">
-                  <input type="submit" value="등록" />
-                </div>
-              </div>
-            </form>
-          </div>
+          </form>
         </div>
       </div>
-
-      <footer>
-        <div><a class="footer_atag" href="#">맨위로 올라가기 |</a></div>
-        &nbsp;&nbsp;
-        <div>likelion develop team : 선수연, 박주희, 조상현, 배지현</div>
-      </footer>
     </div>
-  </body>
+
+    <footer>
+      <div><a class="footer_atag" href="#">맨위로 올라가기 |</a></div>
+      &nbsp;&nbsp;
+      <div>likelion develop team : 선수연, 박주희, 조상현, 배지현</div>
+    </footer>
+  </div>
+</body>
+
 </html>

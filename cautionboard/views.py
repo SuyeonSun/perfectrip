@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from.models import Comment
 from.models import Text
 from django.utils import timezone
+from django.contrib import messages
 
 # Create your views here.
 def home(request):
@@ -11,25 +12,29 @@ menu_bar = []
 # detail함수 : home에서 입력한 각각의 코스들이 DB의 Text Table에 있는지 조회하고 detail.html에 띄워줌
 def detail(request): 
     trips=[]                                     # home.html에서 입력한 코스들을 저장할 리스트
-    trips.append(request.GET['start'])           # 리스트에 출발지 추가
-    trips += request.GET.getlist('middle')       # 리스트에 경유지들 추가
-    trips.append(request.GET['end'])             # 리스트에 도착지 추가
+    trips.append(request.GET["start"])           # 리스트에 출발지 추가
+    trips += request.GET.getlist("middle")       # 리스트에 경유지들 추가
+    trips.append(request.GET["end"])             # 리스트에 도착지 추가
 
     menu_bar.clear()
 
-    for place_name in trips:                     # home에서 입력한 각 코스들에 대해 반복문 실행
-        menu = []                                # menu = 각 코스의 1)'장소명'과 2)'그 장소에 대한 설명'을 담을 리스트
-        menu.append(place_name)                  # 그 장소의 장소명을 추가, 이제 장소에 대한 설명만 담으면 됨.
-        try:                                     # Text table에 해당 코스가 있는지 없는지 검사
-            s = Text.objects.get(pk=place_name)   
-        except Text.DoesNotExist:                # Text table에 해당 코스가 없으면 대체 문구로 대체
-            menu.append("대체 문구")
-        else:                                    # Text table에 해당 코스가 있으면 그 코스의 설명을 가져옴
-            menu.append(s.summary())
-        finally:
-            menu_bar.append(menu)
-            # menu_bar의 형태 : ex) [["출발지", "출발지에 대한 설명"], ["경유지", "경유지에 대한 설명"], ["도착지", "도착지에 대한 설명"]]
-    return render(request, 'detail.html', {'trip_list' : menu_bar})
+    if "" in trips or " " in trips:          # 홈에서 공란으로 제출한 코스가 있다면
+        messages.warning(request, "! 계획한 여행코스를 빠짐없이 입력해주세요 !")
+        return redirect('home')
+    else:                                    # 홈에서 모든 코스를 적어서 제출(즉 정상적인 케이스)
+        for place_name in trips:                     # home에서 입력한 각 코스들에 대해 반복문 실행
+            menu = []                                # menu = 각 코스의 1)'장소명'과 2)'그 장소에 대한 설명'을 담을 리스트
+            menu.append(place_name)                  # 그 장소의 장소명을 추가, 이제 장소에 대한 설명만 담으면 됨.
+            try:                                     # Text table에 해당 코스가 있는지 없는지 검사
+                s = Text.objects.get(pk=place_name)   
+            except Text.DoesNotExist:                # Text table에 해당 코스가 없으면 대체 문구로 대체
+                menu.append("대체 문구")
+            else:                                    # Text table에 해당 코스가 있으면 그 코스의 설명을 가져옴
+                menu.append(s.summary())
+            finally:
+                menu_bar.append(menu)
+                # menu_bar의 형태 : ex) [["출발지", "출발지에 대한 설명"], ["경유지", "경유지에 대한 설명"], ["도착지", "도착지에 대한 설명"]]
+        return render(request, 'detail.html', {'trip_list' : menu_bar})
 
 
 #place에 해당하는 comments들을 가져옴

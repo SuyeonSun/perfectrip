@@ -38,7 +38,13 @@
         });
       });
     </script>
-
+    <script>
+      $(document).ready(function() {
+        $(".message-clear").click(function() {
+          $(".message-wrap").fadeOut();
+        });
+      });
+    </script>
     <style>
       body {
         background: url("/static/images/back.jpg") fixed;
@@ -61,9 +67,39 @@
       .container {
         flex-wrap: wrap;
         display: flex;
+        flex-direction: column;
+        align-items: center;
         justify-content: center;
         margin-top: 200px;
         margin-bottom: 200px;
+      }
+
+      .message-wrap{
+        padding: 10px;
+        background-color: rgba(255, 255, 255, 0.7);
+        position: absolute;
+        margin-top: 80px;
+        width: 360px;
+        left: 50%;
+        transform:translateX(-50%);
+        border-radius: 10px;
+        border: 2px solid red;
+        text-align: center;
+      }
+
+      .message-tag{
+        color: red;
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      .message-content{
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .message-clear{
+        font-size: 12px;
       }
 
       .item1 {
@@ -140,7 +176,15 @@
         </a>
       </nav>
     </header>
-
+    {% if messages %}
+        <div class="message-wrap">
+        {% for message in messages %}
+          <div class="message-tag">※ {{message.tags}} ※</div>
+          <div class="message-content">{{message.message}}</div>
+        {% endfor %}
+          <input class="message-clear" type="button" value="확인">
+      </div>
+      {% endif %}
     <div class="container" style="text-align: center">
       <form action="detail">
         <!--출발지-->
