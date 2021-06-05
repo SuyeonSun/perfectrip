@@ -99,6 +99,13 @@
       text-decoration: none;
       color: black;
     }
+    .comment-not-here{
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 50px;
+      margin-bottom: 50px;
+    }
 
     .context {
       padding-top: 10px;
@@ -108,7 +115,6 @@
     }
 
     .text {
-      background-color: aqua;
       padding: 10px;
       background-color: #f2f3f4;
     }
@@ -118,7 +124,7 @@
       border: 2px solid #e6e6e6;
       border-radius: 20px;
       margin: 10px auto;
-      background-color: #f5f3f3;
+      background-color: #f7f7f7;
     }
 
     .input-wrap {
@@ -202,7 +208,7 @@
     input[type="submit"] {
       border-radius: 10px;
       padding: 10px 20px;
-      background-color: rgb(172, 167, 167);
+      background-color: rgb(209, 209, 209);
       border-width: 0px;
     }
 
@@ -296,12 +302,16 @@
 
       <div id="right">
         <div class="text">
-          <p style="font-size: 20px; margin-left: 7px">
-            <strong>{{text.place}}</strong>
-          </p>
-          <p style="font-size: 15px; margin-left: 7px">
-            {{text.placeInformation}}
-          </p>
+          {%if text%}
+            <p style="font-size: 20px; margin-left: 7px">
+              <strong>{{text.place}}</strong>
+            </p>
+            <p style="font-size: 15px; margin-left: 7px">
+              {{text.placeInformation}}
+            </p>
+          {%else%}
+            <p>등록되어 있지 않은 장소입니다.</p>
+          {%endif%}
         </div>
 
         <script>
@@ -318,91 +328,101 @@
         </script>
 
         <div class="content">
-          {%for content in comment_list%}
-          <p style="padding-left: 7px; margin: 10px">
-            <i class="fas fa-user-circle fa-lg"></i>
-            <strong>{{content.author}}</strong> &nbsp;
-            <span style="color: gray; font-size: 14px">{{content.pub_date}}</span>
-          </p>
-          <p style="padding-left: 7px; margin: 10px">{{content.caution}}</p>
-          <div id="like_hate">
-            <div id="like_hate">
-              <a href="{%url 'yesUp' text.place content.id%}">
-                <input type="button" id="yes" onclick='count("yes","{{ forloop.counter }}")' value="좋아요" />
-              </a>
+          {%if text%}
+            {%if comment_list%}
+              {%for content in comment_list%}
+              <p style="padding-left: 7px; margin: 10px">
+                <i class="fas fa-user-circle fa-lg"></i>
+                <strong>{{content.author}}</strong> &nbsp;
+                <span style="color: gray; font-size: 14px">{{content.pub_date}}</span>
+              </p>
+              <p style="padding-left: 7px; margin: 10px">{{content.caution}}</p>
+              <div id="like_hate">
+                <div id="like_hate">
+                  <a href="{%url 'yesUp' text.place content.id%}">
+                    <input type="button" id="yes" onclick='count("yes","{{ forloop.counter }}")' value="좋아요" />
+                  </a>
 
-              <div id="yes{{forloop.counter}}" name="yes">
-                {{content.yes}}
+                  <div id="yes{{forloop.counter}}" name="yes">
+                    {{content.yes}}
+                  </div>
+                </div>
+
+                <div id="like_hate">
+                  <a href="{%url 'noUp' text.place content.id%}">
+                    <input type="button" id="no" onclick='count("no","{{ forloop.counter }}")' value="싫어요" />
+                  </a>
+
+                  <div id="no{{ forloop.counter }}" name="no">
+                    {{content.no}}
+                  </div>
+                </div>
               </div>
-            </div>
-
-            <div id="like_hate">
-              <a href="{%url 'noUp' text.place content.id%}">
-                <input type="button" id="no" onclick='count("no","{{ forloop.counter }}")' value="싫어요" />
-              </a>
-
-              <div id="no{{ forloop.counter }}" name="no">
-                {{content.no}}
+              <hr />
+              {% endfor %}
+            {%else%}
+              <div class="comment-not-here">
+                <img src="{%static 'images/caution.png'%}" width="25%">
+                <p>아직 이 장소에 대한 주의사항이 없습니다!</p>
               </div>
-            </div>
-          </div>
-
-          <hr />
-          {% endfor %}
+            {%endif%}
+          {%endif%}
         </div>
 
         <div class="write">
-          <form action="{%url 'addcaution' text.place%}" method="POST">
-            {% csrf_token %}
-            <div class="write-wrap">
-              <div class="input-wrap">
-                <input type="text" name="author" placeholder="이름을 입력하세요" />
-              </div>
-              <div class="input-wrap">
-                <textarea name="caution" placeholder="주의사항을 입력하세요"></textarea>
-              </div>
-              <div class="input-wrap">
-                <div class="travel-wrap">
-                  <div class="travel-btn-wrap">
-                    <input type="radio" name="trip-type" class="btn-triptype" id="id1" value="alone" /><label
-                      for="id1"># 혼자여행</label>
-                  </div>
-                  <div class="travel-btn-wrap">
-                    <input type="radio" name="trip-type" class="btn-triptype" id="id2" value="friend" /><label
-                      for="id2"># 우정여행</label>
-                  </div>
-                  <div class="travel-btn-wrap">
-                    <input type="radio" name="trip-type" class="btn-triptype" id="id3" value="family" /><label
-                      for="id3"># 가족여행</label>
-                  </div>
-                  <div class="travel-btn-wrap">
-                    <input type="radio" name="trip-type" class="btn-triptype" id="id4" value="couple" /><label
-                      for="id4"># 커플여행</label>
-                  </div>
-                  <div class="travel-btn-wrap">
-                    <input type="radio" name="trip-type" class="btn-triptype" id="id5" value="group" /><label
-                      for="id5"># 단체여행</label>
+          {%if text%}
+            <form action="{%url 'addcaution' text.place%}" method="POST">
+              {% csrf_token %}
+              <div class="write-wrap">
+                <div class="input-wrap">
+                  <input type="text" name="author" placeholder="이름을 입력하세요" />
+                </div>
+                <div class="input-wrap">
+                  <textarea name="caution" placeholder="주의사항을 입력하세요"></textarea>
+                </div>
+                <div class="input-wrap">
+                  <div class="travel-wrap">
+                    <div class="travel-btn-wrap">
+                      <input type="radio" name="trip-type" class="btn-triptype" id="id1" value="alone" /><label
+                        for="id1"># 혼자여행</label>
+                    </div>
+                    <div class="travel-btn-wrap">
+                      <input type="radio" name="trip-type" class="btn-triptype" id="id2" value="friend" /><label
+                        for="id2"># 우정여행</label>
+                    </div>
+                    <div class="travel-btn-wrap">
+                      <input type="radio" name="trip-type" class="btn-triptype" id="id3" value="family" /><label
+                        for="id3"># 가족여행</label>
+                    </div>
+                    <div class="travel-btn-wrap">
+                      <input type="radio" name="trip-type" class="btn-triptype" id="id4" value="couple" /><label
+                        for="id4"># 커플여행</label>
+                    </div>
+                    <div class="travel-btn-wrap">
+                      <input type="radio" name="trip-type" class="btn-triptype" id="id5" value="group" /><label
+                        for="id5"># 단체여행</label>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="input-wrap">
-                <div class="travel-wrap" id="pet-wrap">
-                  <div class="travel-btn-wrap">
-                    <input type="radio" name="have-pet" class="btn-havepet" id="pet1" value="yes" /><label for="pet1">#
-                      애완견있음</label>
-                  </div>
-                  <div class="travel-btn-wrap">
-                    <input type="radio" name="have-pet" class="btn-havepet" id="pet2" value="no" /><label for="pet2">#
-                      애완견없음</label>
+                <div class="input-wrap">
+                  <div class="travel-wrap" id="pet-wrap">
+                    <div class="travel-btn-wrap">
+                      <input type="radio" name="have-pet" class="btn-havepet" id="pet1" value="yes" /><label for="pet1">#
+                        애완견있음</label>
+                    </div>
+                    <div class="travel-btn-wrap">
+                      <input type="radio" name="have-pet" class="btn-havepet" id="pet2" value="no" /><label for="pet2">#
+                        애완견없음</label>
+                    </div>
                   </div>
                 </div>
+                <div class="submit-wrap">
+                  <input type="submit" value="등록" />
+                </div>
               </div>
-              <div class="submit-wrap">
-                <input type="submit" value="등록" />
-              </div>
-            </div>
-          </form>
+            </form>
+          {%endif%}
         </div>
       </div>
     </div>
