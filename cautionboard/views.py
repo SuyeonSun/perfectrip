@@ -50,8 +50,8 @@ def detail(request):
 
 #place에 해당하는 comments들을 가져옴
 def getplacedetails(request,place):  
-    comments=Comment.objects.filter(place=place).filter(pet=type[0]).filter(tripType=type[1]).order_by('-yes')
-    comments2=Comment.objects.filter(place=place).exclude(pet=type[0]).exclude(tripType=type[1]).order_by('-yes')
+    comments=Comment.objects.filter(place=place)
+    truecomments=comments.filter(pet=type[0]).filter(tripType=type[1]).order_by('-yes')
 
     try:                                   # Text table에 있는 장소면 ~
         text=Text.objects.get(pk=place)
@@ -59,11 +59,15 @@ def getplacedetails(request,place):
         text = {}
 
     comment_list=list(comments)
-    comment2_list=list(comments2)
-    comment_list+=comment2_list
-
+    truecomments_list=list(truecomments)
+    falsecomments_list=[x for x in comment_list if x not in truecomments_list]
+    falsecomments_list.sort(key=lambda Comment: Comment.yes,reverse=True)
+    #comment2_list=list(comments2)
+    comment_list.clear()
+    comment_list+=truecomments_list+falsecomments_list
     #comment_list.sort(key=lambda Comment: Comment.yes,reverse=True)
-    return render(request, 'detail_detail.html', {'trip_list' : menu_bar, 'comment_list' : comment_list,'text' : text, 'pet':type[0],'tripType':type[1]})
+    
+    return render(request, 'detail_detail.html', {'trip_list' : menu_bar, 'comment_list' : comment_list,'text' : text})
 
 
 #주의사항 더하기

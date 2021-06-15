@@ -349,6 +349,14 @@
             // 결과 출력
             resultElement.innerText = number;
           }
+
+          function show(pet, num) {
+            var resultElement = document.getElementById(type + num);
+            var pet = resultElement.innerText;
+            if (pet === 'True') {
+              resultElement.innerText = '애완견 있음';
+            }
+          }
         </script>
 
         <div class="content">
@@ -366,7 +374,6 @@
               <a href="{%url 'yesUp' text.place content.id%}">
                 <input type="button" id="yes" onclick='count("yes","{{ forloop.counter }}")' value="좋아요" />
               </a>
-
               <div id="yes{{forloop.counter}}" name="yes">
                 {{content.yes}}
               </div>
@@ -382,8 +389,12 @@
               </div>
 
               <div id="type">
-                <span class="border"><strong>{{pet}}</strong></span>
-                <span class="border"><strong>{{tripType}}</strong></span>
+                {%if content.pet == True%}
+                <span class="border"><strong>애완견 있음</strong></span>
+                {%else%}
+                <span class="border"><strong>애완견 없음</strong></span>
+                {%endif%}
+                <span class="border"><strong>{{content.tripType}}</strong></span>
               </div>
             </div>
           </div>
@@ -405,10 +416,10 @@
             {% csrf_token %}
             <div class="write-wrap">
               <div class="input-wrap">
-                <input type="text" name="author" placeholder="이름을 입력하세요" />
+                <input type="text" name="author" style="font-size: 16px;" placeholder="이름을 입력하세요" />
               </div>
               <div class="input-wrap">
-                <textarea name="caution" placeholder="주의사항을 입력하세요"></textarea>
+                <textarea name="caution" style="font-size: 16px;" placeholder="주의사항을 입력하세요"></textarea>
               </div>
               <div class="input-wrap">
                 <div class="travel-wrap">
