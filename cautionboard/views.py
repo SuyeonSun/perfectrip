@@ -9,12 +9,23 @@ def home(request):
     return render(request, "home.html")
 
 menu_bar = []  
+type=[]
 # detail함수 : home에서 입력한 각각의 코스들이 DB의 Text Table에 있는지 조회하고 detail.html에 띄워줌
 def detail(request): 
     trips=[]                                     # home.html에서 입력한 코스들을 저장할 리스트
     trips.append(request.GET["start"])           # 리스트에 출발지 추가
     trips += request.GET.getlist("middle")       # 리스트에 경유지들 추가
     trips.append(request.GET["end"])             # 리스트에 도착지 추가
+
+    type.clear()
+    
+    if request.GET['애완견 여부']=='yes':
+        type.append(True)
+    else:
+        type.append(False)
+
+    type.append(request.GET["여행 종류"])
+    print(type)
 
     menu_bar.clear()
 
@@ -39,7 +50,8 @@ def detail(request):
 
 #place에 해당하는 comments들을 가져옴
 def getplacedetails(request,place):  
-    comments=Comment.objects.filter(place=place).order_by('-yes')   #비교
+    comments=Comment.objects.filter(place=place).filter(pet=type[0]).filter(tripType=type[1]).order_by('-yes')
+    comments2=Comment.objects.filter(place=place).exclude(pet=type[0]).exclude(tripType=type[1]).order_by('-yes')
 
     try:                                   # Text table에 있는 장소면 ~
         text=Text.objects.get(pk=place)
@@ -47,8 +59,11 @@ def getplacedetails(request,place):
         text = {}
 
     comment_list=list(comments)
+    comment2_list=list(comments2)
+    comment_list+=comment2_list
+
     #comment_list.sort(key=lambda Comment: Comment.yes,reverse=True)
-    return render(request, 'detail_detail.html', {'trip_list' : menu_bar, 'comment_list' : comment_list,'text' : text})  
+    return render(request, 'detail_detail.html', {'trip_list' : menu_bar, 'comment_list' : comment_list,'text' : text, 'pet':type[0],'tripType':type[1]})
 
 
 #주의사항 더하기
