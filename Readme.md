@@ -28,4 +28,6 @@
 * CSS
 
 #### 4. 주요 기능
-* 
+<img width="1666" alt="스크린샷 2023-10-28 오후 3 00 03" src="https://github.com/SuyeonSun/perfect_trip/assets/77823761/bdbf135d-9e2e-42aa-8e0b-f7ed8456aaf3">
+<img width="1667" alt="스크린샷 2023-10-28 오후 3 00 27" src="https://github.com/SuyeonSun/perfect_trip/assets/77823761/3ddb2b5e-36b4-45b9-9e8b-9a7ae2b31038">
+<img width="1667" alt="스크린샷 2023-10-28 오후 3 00 46" src="https://github.com/SuyeonSun/perfect_trip/assets/77823761/8b2da96a-bfb1-4568-a48f-0935534068dd">
